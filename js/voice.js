@@ -123,7 +123,8 @@ var Voice = {
       utterance.onend = function() {
         self.isSpeaking = false;
         if (onDone) onDone();
-        self.startListening();
+        // Delay before restarting STT — Web Speech API needs time to reset
+        setTimeout(function() { self.startListening(); }, 300);
       };
 
       utterance.onerror = function() {

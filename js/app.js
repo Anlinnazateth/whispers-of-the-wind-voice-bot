@@ -7,6 +7,7 @@ var App = {
   MAX_SILENCE_RETRIES: 2,
   muted: false,
   callActive: false,
+  isThinking: false,
 
   init: function() {
     var self = this;
@@ -113,6 +114,7 @@ var App = {
     Claude.addUserMessage(openingMessage);
     UI.addMessage('user', openingMessage);
 
+    this.isThinking = true;
     var systemPrompt = SystemPrompt.build(State.stage, State.checkpoints, scenarioHint);
     this.getBotResponse(systemPrompt, scenarioHint);
   },
@@ -123,6 +125,8 @@ var App = {
 
     UI.addMessage('user', text);
     UI.setStatus('thinking', 'Thinking...');
+    this.isThinking = true;
+    Voice.stopListening(); // stop STT while we wait for Claude
 
     Claude.addUserMessage(text);
 
@@ -148,6 +152,7 @@ var App = {
 
       if (metadata) State.applyUpdate(metadata);
 
+      self.isThinking = false;
       // Store full raw response in conversation history
       Claude.addAssistantMessage(raw);
 
@@ -164,6 +169,7 @@ var App = {
         }
       });
     }).catch(function(e) {
+      self.isThinking = false;
       UI.setStatus(null, 'Error: ' + e.message);
       console.error('Claude API error:', e);
     });
@@ -171,7 +177,7 @@ var App = {
 
   handleSilenceTimeout: function() {
     var self = this;
-    if (!this.callActive || State.isCallOver()) return;
+    if (!this.callActive || State.isCallOver() || this.isThinking) return;
 
     this.silenceRetries++;
 
