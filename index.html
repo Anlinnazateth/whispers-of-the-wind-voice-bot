@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Divyasree Voice Agent &mdash; Whispers of the Wind</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- API Key Setup -->
+  <div id="setup-screen" class="screen active">
+    <div class="setup-card">
+      <h1>Divyasree Voice Agent</h1>
+      <p class="subtitle">Whispers of the Wind &mdash; Lead Qualifier</p>
+      <input type="password" id="api-key-input" placeholder="Enter your Anthropic API key" />
+      <button id="save-key-btn">Start Agent</button>
+      <p class="note">Your key is stored locally and never shared.</p>
+    </div>
+  </div>
+
+  <!-- Call Screen -->
+  <div id="call-screen" class="screen">
+    <!-- Header -->
+    <div class="call-header">
+      <div class="agent-info">
+        <div class="avatar">P</div>
+        <div>
+          <div class="agent-name">Priya</div>
+          <div class="agent-role">Divyasree Consultant</div>
+        </div>
+      </div>
+      <div id="call-timer" class="call-timer">0:00</div>
+    </div>
+
+    <!-- Stage Indicator -->
+    <div class="stage-bar">
+      <div class="stage-item" data-stage="INTRO">Intro</div>
+      <div class="stage-item" data-stage="INTENT">Intent</div>
+      <div class="stage-item" data-stage="GEOGRAPHY">Location</div>
+      <div class="stage-item" data-stage="BUDGET">Budget</div>
+      <div class="stage-item" data-stage="TIMELINE">Timeline</div>
+      <div class="stage-item" data-stage="PITCH">Pitch</div>
+      <div class="stage-item" data-stage="CTA">CTA</div>
+    </div>
+
+    <!-- Scenario Presets -->
+    <div class="scenario-bar">
+      <span class="scenario-label">Scenario:</span>
+      <button class="scenario-btn" data-scenario="ideal">1. Ideal Lead</button>
+      <button class="scenario-btn" data-scenario="irritated">2. Irritated</button>
+      <button class="scenario-btn" data-scenario="location-mismatch">3. Location Mismatch</button>
+      <button class="scenario-btn" data-scenario="nri">4. NRI Investor</button>
+      <button class="scenario-btn" data-scenario="disengaged">5. Disengaged</button>
+    </div>
+
+    <!-- Transcript -->
+    <div id="transcript" class="transcript"></div>
+
+    <!-- Status + Controls -->
+    <div class="call-controls">
+      <div id="status-indicator" class="status-indicator">
+        <div class="status-dot"></div>
+        <span id="status-text">Ready</span>
+      </div>
+      <button id="start-call-btn" class="btn-primary">Start Call</button>
+      <button id="mute-btn" class="btn-secondary" disabled>Mute</button>
+      <button id="end-call-btn" class="btn-danger" disabled>End Call</button>
+    </div>
+  </div>
+
+  <!-- Qualification Summary Card -->
+  <div id="summary-screen" class="screen">
+    <div class="summary-card">
+      <h2>Lead Qualification Summary</h2>
+      <div class="checkpoints">
+        <div class="checkpoint" id="cp-intent">
+          <span class="cp-icon">&#9675;</span>
+          <span class="cp-label">Intent (Self-use / Investment)</span>
+          <span class="cp-value" id="cp-intent-value">&#8212;</span>
+        </div>
+        <div class="checkpoint" id="cp-geography">
+          <span class="cp-icon">&#9675;</span>
+          <span class="cp-label">Geography Fit</span>
+          <span class="cp-value" id="cp-geography-value">&#8212;</span>
+        </div>
+        <div class="checkpoint" id="cp-budget">
+          <span class="cp-icon">&#9675;</span>
+          <span class="cp-label">Budget Fit (92.4L+)</span>
+          <span class="cp-value" id="cp-budget-value">&#8212;</span>
+        </div>
+        <div class="checkpoint" id="cp-timeline">
+          <span class="cp-icon">&#9675;</span>
+          <span class="cp-label">Timeline (Dec 2029)</span>
+          <span class="cp-value" id="cp-timeline-value">&#8212;</span>
+        </div>
+      </div>
+      <div id="qualification-result" class="qualification-result"></div>
+      <button id="new-call-btn" class="btn-primary">Start New Call</button>
+    </div>
+  </div>
+
+  <script src="js/system-prompt.js"></script>
+  <script src="js/scenarios.js"></script>
+  <script src="js/claude.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
