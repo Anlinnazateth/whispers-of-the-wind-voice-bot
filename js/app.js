@@ -158,6 +158,7 @@ var App = {
 
       UI.addMessage('bot', spokenText);
       UI.updateStage(State.stage);
+      UI.updateCheckpoints(State.checkpoints);
       UI.setStatus('speaking', 'Speaking...');
 
       Voice.speak(spokenText, function() {

@@ -1,0 +1,16 @@
+{
+  "name": "whispers-of-the-wind-voice-bot",
+  "version": "1.0.0",
+  "description": "AI Voice Agent for Divyasree Whispers of the Wind — outbound lead qualifier",
+  "scripts": {
+    "test": "PLAYWRIGHT_BROWSERS_PATH=.playwright-browsers node node_modules/@playwright/test/cli.js test",
+    "test:ui": "PLAYWRIGHT_BROWSERS_PATH=.playwright-browsers node node_modules/@playwright/test/cli.js test tests/ui.spec.js",
+    "test:state": "PLAYWRIGHT_BROWSERS_PATH=.playwright-browsers node node_modules/@playwright/test/cli.js test tests/state.spec.js",
+    "test:flow": "PLAYWRIGHT_BROWSERS_PATH=.playwright-browsers node node_modules/@playwright/test/cli.js test tests/call-flow.spec.js",
+    "test:edge": "PLAYWRIGHT_BROWSERS_PATH=.playwright-browsers node node_modules/@playwright/test/cli.js test tests/edge-cases.spec.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "http-server": "^14.1.1"
+  }
+}

@@ -106,6 +106,36 @@ var UI = {
     document.getElementById('mute-btn').textContent = muted ? 'Unmute' : 'Mute';
   },
 
+  // ── Checkpoint live update (called mid-call when checkpoints change) ──────
+  // Updates the summary card checkpoint rows in real-time so tests can inspect
+  // checkpoint state without waiting for the call to end.
+  updateCheckpoints: function(checkpoints) {
+    var entries = [
+      { key: 'intent',    id: 'cp-intent' },
+      { key: 'geography', id: 'cp-geography' },
+      { key: 'budget',    id: 'cp-budget' },
+      { key: 'timeline',  id: 'cp-timeline' },
+    ];
+    entries.forEach(function(entry) {
+      var rowEl   = document.getElementById(entry.id);
+      var iconEl  = rowEl.querySelector('.cp-icon');
+      var valueEl = document.getElementById(entry.id + '-value');
+      rowEl.classList.remove('pass', 'fail', 'partial');
+      if (checkpoints[entry.key] === true) {
+        rowEl.classList.add('pass');
+        iconEl.textContent  = 'Pass';
+        valueEl.textContent = 'Pass';
+      } else if (checkpoints[entry.key] === false) {
+        rowEl.classList.add('fail');
+        iconEl.textContent  = 'Fail';
+        valueEl.textContent = 'Fail';
+      } else {
+        iconEl.textContent  = 'o';
+        valueEl.textContent = 'Not reached';
+      }
+    });
+  },
+
   // ── Qualification summary card ────────────────────────────────────────────
   showSummary: function(checkpoints, result) {
     var entries = [
